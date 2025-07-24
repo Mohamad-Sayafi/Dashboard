@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../assets/js/main.js"></script>
+</head>
+
+<body>
+
+    <div class="container" style="max-width: 500px; margin-top: 50px;">
+        <h4 class="mb-4 text-center">Edit data</h4>
+        <a href="logout.php"><i class="fa-solid fa-sign-out" style="font-size :x-large; color:red; position:fixed; right:50px; top:40px;"></i></a>
+        <?php if (!empty($error)) : ?>
+            <div class="alert alert-danger" role="alert">
+                <?php echo $error; ?>
+            </div>
+        <?php endif; ?>
+
+        <?php if (!empty($success)) : ?>
+            <div class="alert alert-success" role="alert">
+                <?php echo $success; ?>
+            </div>
+        <?php endif; ?>
+        <form action="" method="post" id="change_info">
+
+            <div class="mb-3">
+                <label for="name" class="form-label">New Name</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="form-label">New Email</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label">New password</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="confirm_password" class="form-label">Confirm New password</label>
+                <input type="password" class="form-control" id="confirm_password" name="confirm">
+            </div>
+
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
