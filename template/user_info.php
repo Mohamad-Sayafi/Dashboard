@@ -1,3 +1,12 @@
+<?php
+require_once '../loader.php';
+session_start();
+$user = $_SESSION['user_id'];
+
+$sql = "SELECT *FROM user WHERE `user_id`= $user";
+$output = db_select($sql);
+$user_info = $output[0];
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -147,8 +156,8 @@
     </header>
     <main>
         <img src="../uploads/user.png" alt="Profile Picture" />
-        <h2>John Doe</h2>
-        <p>johndoe@example.com</p>
+        <h2><?php echo $user_info['user_name']; ?></h2>
+        <p><?php echo $user_info['user_email']; ?></p>
         <a href="change_info.php" class="edit-profile">Edit Profile</a>
     </main>
 </body>

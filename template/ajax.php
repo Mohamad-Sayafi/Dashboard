@@ -38,9 +38,9 @@ if ($action == 'register') {
 
         if ($result) {
             $connection = db_connection();
-            $user_id = mysqli_insert_id($connection);
-
-            $_SESSION['user_id'] = $user_id;
+            $sql = " SELECT * FROM `user` WHERE `user_email` = '$email'";
+            $output = db_select_one($sql);
+            $_SESSION['user_id'] = $output['user_id'];
             $result = [
                 'success' => 'you registerd successfully.'
             ];
@@ -105,11 +105,17 @@ if ($action == 'register') {
             'failed' => 'password is incorrect'
         ];
     } else {
+        $name = $_POST['name'];
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        $confirm_password = $_POST['confirm_password'];
+        $hashed = md5($confirm_password);
         $user_id = $_SESSION['user_id'];
 
-        $sql = "UPDATE `user` SET `user_name`='$name',`user_email`='$email',`user_password`='$hashed' WHERE `user_id`= $user_id";
-        $output = mysqli_query(db_connection(), $sql);
 
+
+        $sql = "UPDATE user SET user_name = '$name', user_email = '$email', user_password = '$hashed' WHERE user_id = '$user_id'";
+        $output = mysqli_query(db_connection(), $sql);
         $result = [
             'success' => 'your data changed.'
         ];
@@ -117,3 +123,4 @@ if ($action == 'register') {
         exit;
     }
 }
+echo $user_id;
