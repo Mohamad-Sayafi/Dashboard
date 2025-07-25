@@ -132,7 +132,7 @@ $output = db_select($sql);
     .add-btn {
       position: absolute;
       right: 40px;
-      background-color: #007bff;
+      background-color: #343a40;
       border: none;
       border-radius: 5px;
       font-size: 14px;
@@ -147,9 +147,6 @@ $output = db_select($sql);
       text-decoration: none;
     }
 
-    .add-btn:hover {
-      background-color: #0056b3;
-    }
 
     .add-btn:hover .add {
       text-decoration: none;

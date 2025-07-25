@@ -56,13 +56,13 @@
       border-radius: 8px;
       max-width: 480px;
       margin: auto;
-      box-shadow: 0 2px 8px rgba(52, 58, 64, 0.1);
+      
       color: #343a40;
     }
 
     h2 {
       margin-bottom: 25px;
-      color: #ff6f00;
+      color: #343a40;
       text-align: center;
       font-weight: 700;
       letter-spacing: 1.1px;
@@ -177,7 +177,7 @@
       margin-top: 30px;
       width: 100%;
       padding: 14px;
-      background-color: #ff6f00;
+      background-color: #343a40;
       border: none;
       border-radius: 6px;
       color: #fff;
@@ -185,12 +185,12 @@
       font-weight: 700;
       cursor: pointer;
       transition: background-color 0.3s ease;
-      box-shadow: 0 3px 8px rgba(255, 111, 0, 0.4);
+      
     }
 
     button:hover {
-      background-color: #cc5a00;
-      box-shadow: 0 4px 12px rgba(204, 90, 0, 0.6);
+      background-color: #2f333aff;
+      
       color: #fff;
     }
   </style>

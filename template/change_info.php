@@ -76,7 +76,7 @@
                 <input type="password" class="form-control" id="confirm_password" name="confirm">
             </div>
             <div class="d-grid">
-                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="submit" class="btn btn-dark">Save</button>
             </div>
         </form>
     </div>
