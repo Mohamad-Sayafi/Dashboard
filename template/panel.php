@@ -14,7 +14,6 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        /* Sidebar */
         #sidebar {
             min-width: 250px;
             max-width: 250px;
@@ -40,14 +39,12 @@
             border-left: 4px solid #ff6f00;
         }
 
-        /* Content */
         #content {
             margin-left: 250px;
             padding: 2rem;
             width: 100%;
         }
 
-        /* Header */
         #header {
             height: 60px;
             background-color: #fff;
@@ -67,7 +64,6 @@
             font-weight: 700;
         }
 
-        /* Cards */
         .card {
             border-radius: 0.5rem;
             box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
@@ -83,7 +79,6 @@
             font-size: 0.9rem;
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
             #sidebar {
                 position: relative;
@@ -118,7 +113,7 @@
                 <a class="nav-link" href="product_category.php">Products Category</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Support</a>
+                <a class="nav-link" href="#">Orders</a>
             </li>
         </ul>
     </nav>
