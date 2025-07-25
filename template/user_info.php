@@ -52,17 +52,30 @@ $user_info = $output[0];
             transform: translateY(-50%);
             background-color: #343a40;
             border: none;
-            color: #fff;
             cursor: pointer;
             font-size: 24px;
-            padding: 6px 14px;
+            padding: 0;
             border-radius: 8px;
             transition: background-color 0.3s ease;
+            display: inline-block;
+        }
+
+        .logout-btn a {
+            display: inline-block;
+            color: #fff;
+            padding: 6px 14px;
+            border-radius: 8px;
+            text-decoration: none;
         }
 
         .logout-btn:hover {
             background-color: #495057;
         }
+
+        .logout-btn:hover a {
+            text-decoration: none;
+        }
+
 
         main {
             flex-grow: 1;

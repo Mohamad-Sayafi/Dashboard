@@ -89,4 +89,71 @@ $(document).ready(function () {
             }
         })
     });
+
+    $('#add_products').submit(function (e) {
+        e.preventDefault();
+
+        let name = $('#name').val();
+        let caption = $('#caption').val();
+        let cost = $('#cost').val();
+        let category = $('#category').val();
+
+        let file = $('#myFile')[0].files[0];
+
+        let formData = new FormData();
+        formData.append('action', 'add_products');
+        formData.append('name', name);
+        formData.append('caption', caption);
+        formData.append('cost', cost);
+        formData.append('category', category);
+        if (file) {
+            formData.append('myFile', file);
+        }
+
+        $.ajax({
+            url: '../template/ajax.php',
+            type: 'POST',
+            data: formData,
+            dataType: 'json',
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                if (response.success) {
+                    alert(response.success);
+                    window.location.href = "../template/products.php";
+                } else if (response.failed) {
+                    alert(response.failed);
+                }
+            },
+            error: function () {
+            }
+        });
+    });
+
+    $('#delete_product').submit(function (e) {
+        e.preventDefault();
+        $product_delet = $('#delet_pro').val();
+        $.ajax({
+            url: '../template/ajax.php',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                action: 'delet_products',
+                product_delet: $product_delet
+            }, success: function (response) {
+                if (response.success) {
+                    alert(response.success);
+                    window.location.href = "../template/products.php";
+                } else if (response.failed) {
+                    alert(response.failed);
+                }
+
+            }, error: function () {
+
+            }
+        })
+    });
+    function myFunction() {
+        confirm("are you sure you want to delete this.");
+    }
 })

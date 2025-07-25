@@ -13,20 +13,37 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../assets/js/main.js"></script>
     <style>
-        .logout-btn {
+                .logout-btn {
             position: absolute;
             left: 20px;
             top: 5%;
             transform: translateY(-50%);
             background-color: #343a40;
             border: none;
-            color: #fff;
             cursor: pointer;
             font-size: 24px;
-            padding: 6px 14px;
+            padding: 0;
             border-radius: 8px;
             transition: background-color 0.3s ease;
+            display: inline-block;
         }
+
+        .logout-btn a {
+            display: inline-block;
+            color: #fff;
+            padding: 6px 14px;
+            border-radius: 8px;
+            text-decoration: none;
+        }
+
+        .logout-btn:hover {
+            background-color: #495057;
+        }
+
+        .logout-btn:hover a {
+            text-decoration: none;
+        }
+
     </style>
 </head>
 
@@ -35,7 +52,7 @@
     <div class="container" style="max-width: 500px; margin-top: 50px;">
         <h4 class="mb-4 text-center">Edit data</h4>
         <div class="logout-btn">
-            <a href=" user_info.php"> <i class=" fas fa-arrow-left" style="color: white; font-size:xx-large;"></i></a>
+            <a href=" user_info.php">  <i class=" fas fa-arrow-left" style="color: white;"></i></a>
         </div>
         <form action="" method="post" id="change_info">
 

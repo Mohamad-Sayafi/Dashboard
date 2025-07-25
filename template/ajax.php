@@ -122,5 +122,92 @@ if ($action == 'register') {
         echo json_encode($result);
         exit;
     }
+} elseif ($action == 'add_products') {
+
+    $name = $_POST['name'];
+    $caption = $_POST['caption'];
+    $cost = $_POST['cost'];
+    $category = $_POST['category'];
+
+
+    if (isset($_FILES['myFile']) && $_FILES['myFile']['error'] == 0) {
+        $temp_file = $_FILES['myFile']['tmp_name'];
+        $upload_dir = '../uploads/';
+        $new_name = 'file_' . time() . '.png';
+        if (!move_uploaded_file($temp_file, $upload_dir . $new_name)) {
+            $result = [
+                'failed' => 'uploding failed.'
+            ];
+            echo json_encode($result);
+            exit;
+        }
+        $photo_name = $new_name;
+    } else {
+        $result = [
+            'failed' => 'File not choosed.'
+        ];
+        echo json_encode($result);
+        exit;
+    }
+
+    $errors = [];
+
+    if (empty($name)) {
+        $errors[] = 'enter product name.';
+    }
+
+    if (empty($caption)) {
+        $errors[] = 'enter product caption.';
+    }
+
+    if (!$cost) {
+        $errors[] = 'هenter product price.';
+    }
+
+    if (count($errors) > 0) {
+        $result = [
+            'failed' => implode('<br>', $errors)
+        ];
+        echo json_encode($result);
+        exit;
+    }
+
+    $user_id = $_SESSION['user_id'];
+    $title = $name;
+    $caption = $caption;
+    $cost = $cost;
+    $category = $category;
+
+    $data = [
+        'user_id' => $user_id,
+        'product_title' => $title,
+        'product_caption' => $caption,
+        'product_category' => $category,
+        'product_price' => $cost,
+        'photo_name' => $photo_name
+    ];
+
+    if (db_insert('products', $data)) {
+        $result = [
+            'success' => 'product added.'
+        ];
+    } else {
+        $result = [
+            'failed' => 'adding product failed.'
+        ];
+    }
+    echo json_encode($result);
+    exit;
+} elseif ($action == 'delet_products') {
+    $id =  $_POST['product_delet'];
+    $user_id = $_SESSION['user_id'];
+
+    $connection = db_connection();
+    $sql = "DELETE FROM `products` WHERE `procuct_id`='$id'";
+    mysqli_query($connection, $sql);
+    $result = [
+        'success' => 'Product deleted.'
+    ];
+    echo json_encode($result);
+    exit;
 }
-echo $user_id;
