@@ -156,4 +156,45 @@ $(document).ready(function () {
     function myFunction() {
         confirm("are you sure you want to delete this.");
     }
+
+    $('#searchForm #wordInput').keyup(function () {
+        $word = $(this).val();
+
+        if ($word.length > 1) {
+            $.ajax({
+                url: '../template/ajax.php',
+                type: 'post',
+                data: {
+                    word: $word,
+                    action: 'search',
+                },
+                success: function (response) {
+                    $('#result').html(response);
+                },
+                error: function () {
+
+                }
+            });
+        } else {
+            $('#result').html('');
+        }
+    });
+    $('#wordInput').on('focus', function () {
+        $('#overlay').fadeIn();
+        $('#result').fadeIn();
+
+    });
+
+    $('#wordInput').on('blur', function () {
+        $('#overlay').fadeOut();
+        $('#result').fadeOut();
+        $(this).val('');
+        location.reload();
+
+    });
+
+    $('#overlay').on('click', function () {
+        $(this).fadeOut();
+    });
+
 })

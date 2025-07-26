@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Dashboard Panel</title>
+    <title>Panel</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
     <style>
         body {
@@ -97,7 +97,7 @@
 
     <nav id="sidebar">
         <div class="text-center mb-4">
-            <h3 style="color:#ff6f00; font-weight:700;">MyPanel</h3>
+            <h3 style="color:#ff6f00; font-weight:700;">Panel</h3>
         </div>
         <ul class="nav flex-column px-2">
             <li class="nav-item">

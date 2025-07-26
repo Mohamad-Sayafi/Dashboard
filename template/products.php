@@ -6,7 +6,6 @@ $user = $_SESSION['user_id'];
 
 $sql = "SELECT *FROM products WHERE `user_id`= $user";
 $output = db_select($sql);
-
 ?>
 
 <!DOCTYPE html>
@@ -22,152 +21,131 @@ $output = db_select($sql);
     referrerpolicy="no-referrer">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="../assets/js/main.js"></script>
-  
+
   <style>
     body {
-      font-family: 'Vazir', sans-serif;
+      font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
-      background-color: #f5f5f5;
-      direction: ltr;
-
+      background-color: #f4f4f4;
     }
 
-    .logout-btn {
-      position: absolute;
-      left: 20px;
-      transform: translateY(-50%);
-      background-color: #343a40;
-      border: none;
-      cursor: pointer;
-      font-size: 24px;
-      padding: 0;
-      border-radius: 8px;
-      transition: background-color 0.3s ease;
-      display: inline-block;
-    }
-
-    .logout-btn a {
-      display: inline-block;
-      color: #fff;
-      padding: 6px 14px;
-      border-radius: 8px;
-      text-decoration: none;
-    }
-
-    .logout-btn:hover {
-      background-color: #495057;
-    }
-
-    .logout-btn:hover a {
-      text-decoration: none;
-    }
     header {
-      background-color: #ffffff;
-      padding: 20px 40px;
       display: flex;
-      justify-content: center;
-      align-items: center;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      position: relative;
-    }
-
-    .product-info {
-      position: relative;
-      display: flex;
-      flex-direction: column;
       justify-content: space-between;
-      height: 140px;
-      flex: 1;
-    }
-
-    .delete-form {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-    }
-
-    .delete-btn {
-      background: transparent;
-      border: none;
-      color: #e74c3c;
-      font-size: 20px;
-      cursor: pointer;
-      padding: 4px;
-      transition: color 0.3s ease;
-    }
-
-    .delete-btn:hover {
-      color: #c0392b;
+      align-items: center;
+      padding: 15px 30px;
+      background-color: #343a40;
+      color: white;
+      z-index: 1000000;
+      position: relative;
     }
 
     .title {
       font-size: 28px;
-      font-weight: bold;
-      color: #333;
-      text-align: center;
+      font-weight: 700;
+      margin-right: auto;
     }
 
-    .logout-btn {
-      position: absolute;
-      left: 20px;
-      top: 50%;
-      transform: translateY(-50%);
-      background-color: #343a40;
+    .logout-btn,
+    .add-btn {
+      background-color: #495057;
       border: none;
-      color: #fff;
-      cursor: pointer;
-      font-size: 24px;
-      padding: 6px 14px;
-      border-radius: 8px;
+      padding: 10px 20px;
+      border-radius: 5px;
+      margin: 0 10px;
+      display: inline-flex;
+      align-items: center;
+      color: white;
+      text-decoration: none;
+    }
+
+    .logout-btn a,
+    .add-btn a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .logout-btn i,
+    .add-btn i {
+      margin-right: 8px;
+    }
+
+    .logout-btn:hover,
+    .add-btn:hover {
+      background-color: #6c757d;
       transition: background-color 0.3s ease;
     }
 
-    #delet_product {
-      position: fixed;
-      top: 10px;
-      left: 10;
+    .search-wrapper {
+      display: flex;
+      align-items: center;
+      position: relative;
     }
 
-    .add-btn {
-      position: absolute;
-      right: 40px;
-      background-color: #343a40;
+    #wordInput {
+      padding: 10px 15px;
+      border-radius: 20px;
+      border: 1px solid #ccc;
+      width: 250px;
+      font-size: 16px;
+      transition: width 0.3s ease;
+      z-index: 100000000;
+    }
+
+    #wordInput:focus {
+      border-color: #007bff;
+      outline: none;
+      width: 300px;
+    }
+
+    .search-btn {
+      background-color: #6c757d;
       border: none;
-      border-radius: 5px;
-      font-size: 14px;
+      padding: 10px 15px;
+      border-radius: 50%;
       cursor: pointer;
-      padding: 0;
+      margin-left: 10px;
+      z-index: 100000000;
     }
 
-    .add-btn .add {
-      display: inline-block;
+    .search-btn i {
       color: white;
-      padding: 12px 30px;
-      text-decoration: none;
+      font-size: 16px;
     }
 
-
-    .add-btn:hover .add {
-      text-decoration: none;
+    .search-btn:hover {
+      background-color: #95989bff;
+      transition: background-color 0.3s ease;
     }
 
-    .logout-btn {
-      
-      border: none;
-      cursor: pointer;
-      position: absolute;
-      left: 40px;
-      padding: 0;
+    #result {
+      position: sticky;
+      top: 0;
+      z-index: 100000;
+      display: none;
     }
 
-    .logout-btn a {
-      color: white;
-      display: inline-block;
-      padding: 8px 12px;
-      text-decoration: none;
-    }
+    @media (max-width: 768px) {
+      .title {
+        font-size: 22px;
+      }
 
+      #wordInput {
+        width: 180px;
+      }
+
+      .search-wrapper {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .search-btn {
+        margin-top: 10px;
+      }
+    }
 
     .product-list {
       padding: 20px;
@@ -232,7 +210,20 @@ $output = db_select($sql);
       line-height: 1.3;
     }
 
+    .search {
+      display: flex;
+    }
 
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: black;
+      display: none;
+      z-index: 1000;
+    }
 
     @media (max-width: 600px) {
       .product-card {
@@ -256,18 +247,23 @@ $output = db_select($sql);
 
   <header>
     <div class="title">Your Product</div>
+    <a href="panel.php" class="logout-btn" aria-label="Logout" title="Logout">
+      <i class="fas fa-arrow-left"></i> Back
+    </a>
+    <a href="add_products.php" class="add-btn">
+      Add Product
+    </a>
 
-    <button class="logout-btn" aria-label="Logout" title="Logout"">
-     <a href="panel.php"> <i class=" fas fa-arrow-left" style="color: white;"></i></a>
-    </button>
-
-    <button class="add-btn">
-      <a class="add" href="add_products.php">Add Product</a>
-    </button>
-
+    <form action="" method="post" id="searchForm">
+      <div class="search-wrapper">
+        <input type="text" id="wordInput" class="form-control" placeholder="Search for products..." required>
+        <button type="submit" class="search-btn"><i class="fas fa-search"></i></button>
+      </div>
+    </form>
   </header>
-  <?php foreach ($output as $item) {
-  ?>
+  <div id="result" class="output-box mt-4 empty"></div>
+
+  <?php foreach ($output as $item) { ?>
     <div class="product-list">
       <div class="product-card">
         <img src="../uploads/<?php echo $item['photo_name']; ?>" alt="Product Image" />
@@ -286,6 +282,7 @@ $output = db_select($sql);
       </div>
     </div>
   <?php } ?>
+  <div id="overlay" class="overlay"></div>
 </body>
 <script>
   function myFunction() {

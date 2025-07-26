@@ -9,9 +9,14 @@ $user = $_SESSION['user_id'];
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer" />
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <title>Product category</title>
 
   <style>
     body {
@@ -20,14 +25,45 @@ $user = $_SESSION['user_id'];
 
     .tabs {
       overflow: hidden;
-      background-color: #f1f1f1;
+
+    }
+
+    .logout-btn {
+      position: absolute;
+      left: 20px;
+
+      transform: translateY(-50%);
+      background-color: #343a40;
+      border: none;
+      cursor: pointer;
+      font-size: 24px;
+      padding: 0;
+      border-radius: 8px;
+      transition: background-color 0.3s ease;
+      display: inline-block;
+    }
+
+    .logout-btn a {
+      display: inline-block;
+      color: #fff;
+      padding: 6px 14px;
+      border-radius: 8px;
+      text-decoration: none;
+    }
+
+    .logout-btn:hover {
+      background-color: #495057;
+    }
+
+    .logout-btn:hover a {
+      text-decoration: none;
     }
 
     .tabs {
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: #f1f1f1;
+
     }
 
     .tablink {
@@ -113,7 +149,7 @@ $user = $_SESSION['user_id'];
     }
 
     .tablink.active {
-      background-color: #2196F3;
+      background-color: #343a40;
       color: white;
     }
 
@@ -127,7 +163,7 @@ $user = $_SESSION['user_id'];
     #Shoes,
     #Accessories,
     #Digital {
-      background-color: #f9f9f9;
+
       height: 200px;
     }
   </style>
@@ -141,7 +177,9 @@ $user = $_SESSION['user_id'];
     <button class="tablink" data-tab="Accessories">Accessories</button>
     <button class="tablink" data-tab="Digital">Digital</button>
   </div>
-
+  <button class="logout-btn" aria-label="Logout" title="Logout"">
+           <a href=" panel.php"> <i class=" fas fa-arrow-left" style="color: white;"></i></a>
+  </button>
   <div id="Clothing" class="tabcontent">
     <?php
     $sql = "SELECT * FROM `products` WHERE `user_id` = '$user' AND `product_category`='clothing'";
@@ -156,12 +194,6 @@ $user = $_SESSION['user_id'];
             <div class="category">Category : <?php echo $item['product_category']; ?> </div>
             <div class="price"><?php echo $item['product_price'] . '$' ?> </div>
             <p><?php echo $item['product_caption']; ?> </p>
-            <form action="" method="post" id="delete_product" class="delete-form" onsubmit="return myFunction()">
-              <input type="hidden" name="product_id" id="delet_pro" value="<?php echo $item['procuct_id']; ?>">
-              <button type="submit" class="delete-btn">
-                <i class="fas fa-trash-alt"></i>
-              </button>
-            </form>
           </div>
         </div>
       </div>
@@ -182,12 +214,6 @@ $user = $_SESSION['user_id'];
             <div class="category">Category : <?php echo $item['product_category']; ?> </div>
             <div class="price"><?php echo $item['product_price'] . '$' ?> </div>
             <p><?php echo $item['product_caption']; ?> </p>
-            <form action="" method="post" id="delete_product" class="delete-form" onsubmit="return myFunction()">
-              <input type="hidden" name="product_id" id="delet_pro" value="<?php echo $item['procuct_id']; ?>">
-              <button type="submit" class="delete-btn">
-                <i class="fas fa-trash-alt"></i>
-              </button>
-            </form>
           </div>
         </div>
       </div>
@@ -208,12 +234,6 @@ $user = $_SESSION['user_id'];
             <div class="category">Category : <?php echo $item['product_category']; ?> </div>
             <div class="price"><?php echo $item['product_price'] . '$' ?> </div>
             <p><?php echo $item['product_caption']; ?> </p>
-            <form action="" method="post" id="delete_product" class="delete-form" onsubmit="return myFunction()">
-              <input type="hidden" name="product_id" id="delet_pro" value="<?php echo $item['procuct_id']; ?>">
-              <button type="submit" class="delete-btn">
-                <i class="fas fa-trash-alt"></i>
-              </button>
-            </form>
           </div>
         </div>
       </div>
@@ -234,12 +254,6 @@ $user = $_SESSION['user_id'];
             <div class="category">Category : <?php echo $item['product_category']; ?> </div>
             <div class="price"><?php echo $item['product_price'] . '$' ?> </div>
             <p><?php echo $item['product_caption']; ?> </p>
-            <form action="" method="post" id="delete_product" class="delete-form" onsubmit="return myFunction()">
-              <input type="hidden" name="product_id" id="delet_pro" value="<?php echo $item['procuct_id']; ?>">
-              <button type="submit" class="delete-btn">
-                <i class="fas fa-trash-alt"></i>
-              </button>
-            </form>
           </div>
         </div>
       </div>
