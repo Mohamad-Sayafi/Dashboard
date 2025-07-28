@@ -211,8 +211,9 @@ if ($action == 'register') {
     echo json_encode($result);
     exit;
 } elseif ($action == 'search') {
+    $user_id = $_SESSION['user_id'];
     $word = $_POST['word'];
-    $sql = "SELECT * FROM products WHERE `product_title` LIKE '$word%'";
+    $sql = "SELECT * FROM products WHERE `product_title` LIKE '$word%' AND `user_id`='$user_id'";
     $connection = db_connection();
     $result = mysqli_query($connection, $sql);
     $output = mysqli_fetch_all($result, MYSQLI_ASSOC);
@@ -320,5 +321,16 @@ if ($action == 'register') {
     </html>
 
 <?php
+} elseif ($action == 'add_order') {
+    $id =  $_POST['product_id'];
+    $user_id = $_SESSION['user_id'];
+
+    $connection = db_connection();
+    $sql = "INSERT INTO orders (`user_id`, `product_id`) VALUES ('$user_id', '$id')";
+    $reslut = mysqli_query($connection, $sql);
+    $result = [
+        'success' => 'order added.'
+    ];
+    echo json_encode($result);
+    exit;
 }
-?>

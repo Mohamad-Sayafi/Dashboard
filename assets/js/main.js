@@ -189,7 +189,7 @@ $(document).ready(function () {
         $('#overlay').fadeOut();
         $('#result').fadeOut();
         $(this).val('');
-        location.reload();
+        
 
     });
 
@@ -197,4 +197,29 @@ $(document).ready(function () {
         $(this).fadeOut();
     });
 
+    $('.order_product').submit(function (e) {
+        e.preventDefault();
+        $product_id = $('#product_id').val();
+        $.ajax({
+            url: '../template/ajax.php',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                action: 'add_order',
+                product_id: $product_id
+            }, success: function (response) {
+                if (response.success) {
+                    alert(response.success);
+                    
+                } else if (response.failed) {
+                    alert(response.failed);
+                }
+
+            }, error: function () {
+
+            }
+        })
+    });
 })
+
+
