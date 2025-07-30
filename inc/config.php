@@ -4,11 +4,11 @@ global $config;
 
 $config = array(
     'db' => [
-        'name' => 'project',
+        'name' => 'dashbord',
         'username' => 'root',
         'password' => '',
         'host' => 'localhost'
     ],
-    'base_url' => 'http://localhost/project'
+    'base_url' => 'http://localhost/dashbord'
 );
 

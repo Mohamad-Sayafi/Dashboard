@@ -1,14 +1,19 @@
-<?php
-require_once '../loader.php';
-session_start();
-
-$sql = "SELECT *FROM products ";
-$output = db_select($sql);
-?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
+    <title>
+        Dashboard
+    </title>
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700,900" />
+    <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
+    <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link id="pagestyle" href="../assets/css/material-dashboard.css?v=3.2.0" rel="stylesheet" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Panel</title>
@@ -22,302 +27,305 @@ $output = db_select($sql);
     <script src="../assets/js/main.js"></script>
     <style>
         body {
-            min-height: 100vh;
-            display: flex;
-            background-color: #f8f9fa;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        #sidebar {
-            min-width: 250px;
-            max-width: 250px;
-            background-color: #343a40;
-            color: white;
-            height: 100vh;
-            position: fixed;
-            padding-top: 1rem;
-        }
-
-        #sidebar .nav-link {
-            color: #adb5bd;
-            font-weight: 500;
-            padding: 15px 20px;
-            display: block;
-            transition: background-color 0.2s ease;
-        }
-
-        #sidebar .nav-link:hover,
-        #sidebar .nav-link.active {
-            background-color: #495057;
-            color: #fff;
-            border-left: 4px solid #ff6f00;
-        }
-
-        #content {
-            margin-left: 250px;
-            padding: 2rem;
-            width: 100%;
-        }
-
-        #header {
-            height: 60px;
-            background-color: #fff;
-            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-            display: flex;
-            align-items: center;
-            padding: 0 1.5rem;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            margin-bottom: 2rem;
-        }
-
-        #header h4 {
+            font-family: Arial, sans-serif;
             margin: 0;
-            color: #ff6f00;
-            font-weight: 700;
+            padding: 0;
+            background-color: #f4f4f4;
         }
 
-        .card {
-            border-radius: 0.5rem;
-            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .card .card-body h5 {
-            color: #343a40;
-            font-weight: 700;
-        }
-
-        .card .card-body p {
-            color: #6c757d;
-            font-size: 0.9rem;
-        }
-
-        #content {
-            margin-left: 250px;
-            padding: 2rem;
-            width: 100%;
-            background-color: #fff;
-            border-radius: 0.5rem;
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
-
-        #content header {
+        header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid #dee2e6;
-            padding-bottom: 0.5rem;
-        }
-
-        #content header .title {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #343a40;
-        }
-
-        #content header .logout-btn,
-        #content header .add-btn {
-            background-color: #ff6f00;
+            padding: 15px 30px;
             color: white;
-            padding: 0.4rem 1rem;
-            border-radius: 0.3rem;
+            z-index: 1000000;
+            position: relative;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-right: auto;
+            color: black;
+        }
+
+        .order_product {
+            position: absolute;
+            right: 10px;
+  background-color: #6c757d;
+  color: white;
+  border-radius: 10px;
+        }
+.product-info{
+    position: relative;
+}
+        .logout-btn,
+        .add-btn {
+            background-color: #888;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin: 0 10px;
+            display: inline-flex;
+            align-items: center;
+            color: white;
+            text-decoration: none;
+        }
+
+        .logout-btn a,
+        .add-btn a {
+
             text-decoration: none;
             font-weight: 600;
+            font-size: 16px;
+        }
+
+        #delete_product {
+            position: absolute;
+            right: 10px;
+            background-color: #6c757d;
+            color: white;
+            border-radius: 10px;
+        }
+
+        .delete-btn {
+            color: black;
+            border-radius: 10px;
+        }
+
+        .logout-btn i,
+        .add-btn i {
+            margin-right: 8px;
+        }
+
+        .logout-btn:hover,
+        .add-btn:hover {
+            background-color: #6c757d;
             transition: background-color 0.3s ease;
-            margin-left: 1rem;
         }
 
-        #content header .logout-btn:hover,
-        #content header .add-btn:hover {
-            background-color: #e65c00;
-        }
-
-        .product-list {
+        .search-wrapper {
             display: flex;
-            flex-wrap: nowrap;
-            overflow-x: auto;
-            gap: 1.5rem;
-            padding-bottom: 0.5rem;
-        }
-
-        .product-list {
-            display: flex;
-            gap: 1.5rem;
-            overflow-x: auto;
-            padding-bottom: 0.5rem;
-            justify-content: center;
-        }
-
-        .product-card {
-            flex: 0 0 66.66%;
-            min-width: 400px;
-            max-width: 900px;
-            height: 250px;
-            background-color: #ffffff;
-            border-radius: 1rem;
-            display: flex;
-            flex-direction: row;
-            cursor: pointer;
-            border: 1px solid #d5d8d8ff;
-            transition: none;
+            align-items: center;
             position: relative;
         }
 
-        .product-card:hover {
-            transform: none;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        #wordInput {
+            padding: 10px 15px;
+            border-radius: 20px;
+            border: 1px solid #ccc;
+            width: 250px;
+            font-size: 16px;
+            transition: width 0.3s ease;
+            z-index: 100000000;
+        }
+
+        #wordInput:focus {
+            border-color: #007bff;
+            outline: none;
+            width: 300px;
+        }
+
+        .search-btn {
+            background-color: #6c757d;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            margin-left: 10px;
+            z-index: 100000000;
+        }
+
+        .search-btn i {
+            color: white;
+            font-size: 16px;
+        }
+
+        .search-btn:hover {
+            background-color: #95989bff;
+            transition: background-color 0.3s ease;
+        }
+
+        #result {
+            position: sticky;
+            top: 0;
+            z-index: 100000;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .title {
+                font-size: 22px;
+            }
+
+            #wordInput {
+                width: 180px;
+            }
+
+            .search-wrapper {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .search-btn {
+                margin-top: 10px;
+            }
+        }
+
+        .product-list {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            gap: 20px;
+            min-height: 160px;
         }
 
         .product-card img {
-            width: 180px;
-            height: 180px;
+            width: 140px;
+            height: 140px;
             object-fit: cover;
             border-radius: 50%;
-            border: 1px solid #d5d8d8ff;
-            margin: auto 2rem auto 2rem;
             flex-shrink: 0;
         }
 
         .product-info {
-            padding: 1.5rem 2rem;
             display: flex;
             flex-direction: column;
-            gap: 0.7rem;
-            justify-content: center;
-            flex-grow: 1;
-            text-align: left;
+            justify-content: space-between;
+            height: 140px;
+            flex: 1;
+            position: relative;
         }
 
         .product-info h3 {
             margin: 0;
-            font-size: 1.6rem;
-            color: #343a40;
+            font-size: 22px;
+            color: #333;
         }
 
         .product-info .category {
-            font-size: 1.1rem;
-            color: #6c757d;
+            font-size: 14px;
+            color: #888;
+            margin-top: 6px;
         }
 
         .product-info .price {
-            font-weight: 700;
-            color: #ff6f00;
-            font-size: 1.3rem;
+            font-size: 18px;
+            color: #007bff;
+            font-weight: bold;
+            margin-top: 10px;
         }
 
         .product-info p {
-            font-size: 1rem;
-            color: #495057;
+            font-size: 14px;
+            color: #555;
+            margin-top: 10px;
+            line-height: 1.3;
         }
 
-
-
-        .order_product {
-            position: absolute;
-            top: 30px;
-            right: 20px;
-            margin: 0;
-            display: inline-block;
-        }
-
-
-        .order-btn {
-            background-color: #ff6f00;
-            border: none;
-            color: white;
-            padding: 6px 10px;
-            font-size: 16px;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
+        .search {
             display: flex;
-            align-items: center;
-            justify-content: center;
         }
 
-        .order-btn:hover {
-            background-color: #b47c27ff;
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            display: none;
+            z-index: 1000;
         }
 
+        @media (max-width: 600px) {
+            .product-card {
+                flex-direction: column;
+                min-height: auto;
+                text-align: center;
+            }
 
+            .product-card img {
+                margin: 0 auto;
+            }
 
-        @media (max-width: 768px) {
-            #sidebar {
-                position: relative;
+            .product-info {
                 height: auto;
-                max-width: 100%;
             }
-
-            #content {
-                margin-left: 0;
-            }
-        }
-
-        .order-btn {
-            position: relative;
-        }
-
-        .order-btn::before {
-            content: "Add to orders.";
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: black;
-            color: white;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 12px;
-            white-space: nowrap;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-            margin-bottom: 6px;
-        }
-
-        .order-btn:hover::before {
-            opacity: 1;
         }
     </style>
 </head>
 
-<body>
-
-    <nav id="sidebar">
-        <div class="text-center mb-4">
-            <h3 style="color:#ff6f00; font-weight:700;">Panel</h3>
+<body class="g-sidenav-show  bg-gray-100">
+    <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-radius-lg fixed-start ms-2  bg-white my-2" id="sidenav-main">
+        <div class="sidenav-header">
+            <i class="fas fa-times p-3 cursor-pointer text-dark opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
+            <a class="navbar-brand px-4 py-3 m-0" href=" https://demos.creative-tim.com/material-dashboard/pages/dashboard " target="_blank">
+                <img src="../assets/img/logo-ct-dark.png" class="navbar-brand-img" width="26" height="26" alt="main_logo">
+                <span class="ms-1 text-sm text-dark">Dashboard</span>
+            </a>
         </div>
-        <ul class="nav flex-column px-2">
-            <li class="nav-item">
-                <a class="nav-link active">Products</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="user_info.php">Users</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="products.php">Your Products</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="product_category.php">Your Products Category</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="order.php">Your Orders</a>
-            </li>
-        </ul>
-    </nav>
+        <hr class="horizontal dark mt-0 mb-2">
+        <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active bg-gradient-dark text-white" href="panel.php">
+                        <i class="material-symbols-rounded opacity-5">dashboard</i>
+                        <span class="nav-link-text ms-1">Panel</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="user_info.php">
+                        <i class="material-symbols-rounded opacity-5">table_view</i>
+                        <span class="nav-link-text ms-1">Profile</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="products.php">
+                        <i class="material-symbols-rounded opacity-5">receipt_long</i>
+                        <span class="nav-link-text ms-1">Products</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="order.php">
+                        <i class="material-symbols-rounded opacity-5">view_in_ar</i>
+                        <span class="nav-link-text ms-1">Orders</span>
+                    </a>
+                </li>
 
-    <div id="content">
+            </ul>
+        </div>
+    </aside>
+    <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+        <?php
+        require_once '../loader.php';
+        $sql = "SELECT * FROM `products`";
+        $connection = db_connection();
+        $output = mysqli_query($connection, $sql);
+        ?>
         <header>
             <div class="title">Products</div>
         </header>
+        <div id="result" class="output-box mt-4 empty"></div>
 
         <?php foreach ($output as $item) { ?>
             <div class="product-list">
                 <div class="product-card">
-                    <img src="../uploads/<?php echo $item['photo_name']; ?>">
+                    <img src="../uploads/<?php echo $item['photo_name']; ?>" alt="Product Image" />
                     <div class="product-info">
                         <h3><?php echo $item['product_title']; ?> </h3>
                         <div class="category">Category : <?php echo $item['product_category']; ?> </div>
@@ -329,12 +337,317 @@ $output = db_select($sql);
                                 <i class="fas fa-plus"></i>
                             </button>
                         </form>
-
                     </div>
                 </div>
             </div>
         <?php } ?>
+    </main>
+    <div class="fixed-plugin">
+
+        <div class="card shadow-lg">
+            <div class="card-header pb-0 pt-3">
+                <div class="float-start">
+                    <h5 class="mt-3 mb-0">Material UI Configurator</h5>
+                    <p>See our dashboard options.</p>
+                </div>
+                <div class="float-end mt-4">
+                    <button class="btn btn-link text-dark p-0 fixed-plugin-close-button">
+                        <i class="material-symbols-rounded">clear</i>
+                    </button>
+                </div>
+            </div>
+            <hr class="horizontal dark my-1">
+            <div class="card-body pt-sm-3 pt-0">
+                <div>
+                    <h6 class="mb-0">Sidebar Colors</h6>
+                </div>
+                <a href="javascript:void(0)" class="switch-trigger background-color">
+                    <div class="badge-colors my-2 text-start">
+                        <span class="badge filter bg-gradient-primary" data-color="primary" onclick="sidebarColor(this)"></span>
+                        <span class="badge filter bg-gradient-dark active" data-color="dark" onclick="sidebarColor(this)"></span>
+                        <span class="badge filter bg-gradient-info" data-color="info" onclick="sidebarColor(this)"></span>
+                        <span class="badge filter bg-gradient-success" data-color="success" onclick="sidebarColor(this)"></span>
+                        <span class="badge filter bg-gradient-warning" data-color="warning" onclick="sidebarColor(this)"></span>
+                        <span class="badge filter bg-gradient-danger" data-color="danger" onclick="sidebarColor(this)"></span>
+                    </div>
+                </a>
+                <div class="mt-3">
+                    <h6 class="mb-0">Sidenav Type</h6>
+                    <p class="text-sm">Choose between different sidenav types.</p>
+                </div>
+                <div class="d-flex">
+                    <button class="btn bg-gradient-dark px-3 mb-2" data-class="bg-gradient-dark" onclick="sidebarType(this)">Dark</button>
+                    <button class="btn bg-gradient-dark px-3 mb-2 ms-2" data-class="bg-transparent" onclick="sidebarType(this)">Transparent</button>
+                    <button class="btn bg-gradient-dark px-3 mb-2  active ms-2" data-class="bg-white" onclick="sidebarType(this)">White</button>
+                </div>
+                <p class="text-sm d-xl-none d-block mt-2">You can change the sidenav type just on desktop view.</p>
+                <div class="mt-3 d-flex">
+                    <h6 class="mb-0">Navbar Fixed</h6>
+                    <div class="form-check form-switch ps-0 ms-auto my-auto">
+                        <input class="form-check-input mt-1 ms-auto" type="checkbox" id="navbarFixed" onclick="navbarFixed(this)">
+                    </div>
+                </div>
+                <hr class="horizontal dark my-3">
+                <div class="mt-2 d-flex">
+                    <h6 class="mb-0">Light / Dark</h6>
+                    <div class="form-check form-switch ps-0 ms-auto my-auto">
+                        <input class="form-check-input mt-1 ms-auto" type="checkbox" id="dark-version" onclick="darkMode(this)">
+                    </div>
+                </div>
+                <hr class="horizontal dark my-sm-4">
+                <a class="btn bg-gradient-info w-100" href="https://www.creative-tim.com/product/material-dashboard-pro">Free Download</a>
+                <a class="btn btn-outline-dark w-100" href="https://www.creative-tim.com/learning-lab/bootstrap/overview/material-dashboard">View documentation</a>
+
+            </div>
+        </div>
     </div>
+    <script src="../assets/js/core/popper.min.js"></script>
+    <script src="../assets/js/core/bootstrap.min.js"></script>
+    <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
+    <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
+    <script src="../assets/js/plugins/chartjs.min.js"></script>
+    <script>
+        var ctx = document.getElementById("chart-bars").getContext("2d");
+
+        new Chart(ctx, {
+            type: "bar",
+            data: {
+                labels: ["M", "T", "W", "T", "F", "S", "S"],
+                datasets: [{
+                    label: "Views",
+                    tension: 0.4,
+                    borderWidth: 0,
+                    borderRadius: 4,
+                    borderSkipped: false,
+                    backgroundColor: "#43A047",
+                    data: [50, 45, 22, 28, 50, 60, 76],
+                    barThickness: 'flex'
+                }, ],
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false,
+                    }
+                },
+                interaction: {
+                    intersect: false,
+                    mode: 'index',
+                },
+                scales: {
+                    y: {
+                        grid: {
+                            drawBorder: false,
+                            display: true,
+                            drawOnChartArea: true,
+                            drawTicks: false,
+                            borderDash: [5, 5],
+                            color: '#e5e5e5'
+                        },
+                        ticks: {
+                            suggestedMin: 0,
+                            suggestedMax: 500,
+                            beginAtZero: true,
+                            padding: 10,
+                            font: {
+                                size: 14,
+                                lineHeight: 2
+                            },
+                            color: "#737373"
+                        },
+                    },
+                    x: {
+                        grid: {
+                            drawBorder: false,
+                            display: false,
+                            drawOnChartArea: false,
+                            drawTicks: false,
+                            borderDash: [5, 5]
+                        },
+                        ticks: {
+                            display: true,
+                            color: '#737373',
+                            padding: 10,
+                            font: {
+                                size: 14,
+                                lineHeight: 2
+                            },
+                        }
+                    },
+                },
+            },
+        });
+
+
+        var ctx2 = document.getElementById("chart-line").getContext("2d");
+
+        new Chart(ctx2, {
+            type: "line",
+            data: {
+                labels: ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"],
+                datasets: [{
+                    label: "Sales",
+                    tension: 0,
+                    borderWidth: 2,
+                    pointRadius: 3,
+                    pointBackgroundColor: "#43A047",
+                    pointBorderColor: "transparent",
+                    borderColor: "#43A047",
+                    backgroundColor: "transparent",
+                    fill: true,
+                    data: [120, 230, 130, 440, 250, 360, 270, 180, 90, 300, 310, 220],
+                    maxBarThickness: 6
+
+                }],
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false,
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: function(context) {
+                                const fullMonths = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                                return fullMonths[context[0].dataIndex];
+                            }
+                        }
+                    }
+                },
+                interaction: {
+                    intersect: false,
+                    mode: 'index',
+                },
+                scales: {
+                    y: {
+                        grid: {
+                            drawBorder: false,
+                            display: true,
+                            drawOnChartArea: true,
+                            drawTicks: false,
+                            borderDash: [4, 4],
+                            color: '#e5e5e5'
+                        },
+                        ticks: {
+                            display: true,
+                            color: '#737373',
+                            padding: 10,
+                            font: {
+                                size: 12,
+                                lineHeight: 2
+                            },
+                        }
+                    },
+                    x: {
+                        grid: {
+                            drawBorder: false,
+                            display: false,
+                            drawOnChartArea: false,
+                            drawTicks: false,
+                            borderDash: [5, 5]
+                        },
+                        ticks: {
+                            display: true,
+                            color: '#737373',
+                            padding: 10,
+                            font: {
+                                size: 12,
+                                lineHeight: 2
+                            },
+                        }
+                    },
+                },
+            },
+        });
+
+        var ctx3 = document.getElementById("chart-line-tasks").getContext("2d");
+
+        new Chart(ctx3, {
+            type: "line",
+            data: {
+                labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                datasets: [{
+                    label: "Tasks",
+                    tension: 0,
+                    borderWidth: 2,
+                    pointRadius: 3,
+                    pointBackgroundColor: "#43A047",
+                    pointBorderColor: "transparent",
+                    borderColor: "#43A047",
+                    backgroundColor: "transparent",
+                    fill: true,
+                    data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
+                    maxBarThickness: 6
+
+                }],
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false,
+                    }
+                },
+                interaction: {
+                    intersect: false,
+                    mode: 'index',
+                },
+                scales: {
+                    y: {
+                        grid: {
+                            drawBorder: false,
+                            display: true,
+                            drawOnChartArea: true,
+                            drawTicks: false,
+                            borderDash: [4, 4],
+                            color: '#e5e5e5'
+                        },
+                        ticks: {
+                            display: true,
+                            padding: 10,
+                            color: '#737373',
+                            font: {
+                                size: 14,
+                                lineHeight: 2
+                            },
+                        }
+                    },
+                    x: {
+                        grid: {
+                            drawBorder: false,
+                            display: false,
+                            drawOnChartArea: false,
+                            drawTicks: false,
+                            borderDash: [4, 4]
+                        },
+                        ticks: {
+                            display: true,
+                            color: '#737373',
+                            padding: 10,
+                            font: {
+                                size: 14,
+                                lineHeight: 2
+                            },
+                        }
+                    },
+                },
+            },
+        });
+    </script>
+    <script>
+        var win = navigator.platform.indexOf('Win') > -1;
+        if (win && document.querySelector('#sidenav-scrollbar')) {
+            var options = {
+                damping: '0.5'
+            }
+            Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+        }
+    </script>
 </body>
 
 </html>
