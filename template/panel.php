@@ -54,13 +54,15 @@
         .order_product {
             position: absolute;
             right: 10px;
-  background-color: #6c757d;
-  color: white;
-  border-radius: 10px;
+            background-color: #6c757d;
+            color: white;
+            border-radius: 10px;
         }
-.product-info{
-    position: relative;
-}
+
+        .product-info {
+            position: relative;
+        }
+
         .logout-btn,
         .add-btn {
             background-color: #888;
@@ -283,7 +285,7 @@
         <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link active bg-gradient-dark text-white" href="panel.php">
+                    <a class="nav-link active bg-gradient-dark text-dark" href="panel.php">
                         <i class="material-symbols-rounded opacity-5">dashboard</i>
                         <span class="nav-link-text ms-1">Panel</span>
                     </a>
@@ -295,10 +297,19 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="products.php">
+                    <a class="nav-link text-dark" href="#" onclick="toggleSubmenu(event)">
                         <i class="material-symbols-rounded opacity-5">receipt_long</i>
                         <span class="nav-link-text ms-1">Products</span>
+                        <i class="material-symbols-rounded ms-auto">expand_more</i>
                     </a>
+                    <ul class="submenu nav flex-column ms-4" style="display: none; list-style: none; padding-left: 0;">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="products.php">Your Products</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="product_category.php">Product Category</a>
+                        </li>
+                    </ul>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-dark" href="order.php">
@@ -311,36 +322,181 @@
         </div>
     </aside>
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
-        <?php
-        require_once '../loader.php';
-        $sql = "SELECT * FROM `products`";
-        $connection = db_connection();
-        $output = mysqli_query($connection, $sql);
-        ?>
-        <header>
-            <div class="title">Products</div>
-        </header>
-        <div id="result" class="output-box mt-4 empty"></div>
-
-        <?php foreach ($output as $item) { ?>
-            <div class="product-list">
-                <div class="product-card">
-                    <img src="../uploads/<?php echo $item['photo_name']; ?>" alt="Product Image" />
-                    <div class="product-info">
-                        <h3><?php echo $item['product_title']; ?> </h3>
-                        <div class="category">Category : <?php echo $item['product_category']; ?> </div>
-                        <div class="price"><?php echo $item['product_price'] . '$' ?> </div>
-                        <p><?php echo $item['product_caption']; ?> </p>
-                        <form action="#" method="post" class="order_product">
-                            <input id="product_id" type="hidden" name="product_id" value="<?php echo $item['procuct_id']; ?>">
-                            <button type="submit" class="order-btn">
-                                <i class="fas fa-plus"></i>
-                            </button>
-                        </form>
+        <div class="container-fluid py-2">
+            <div class="row">
+                <div class="ms-3">
+                    <h3 class="mb-0 h4 font-weight-bolder">Dashboard</h3>
+                    <p class="mb-4">
+                        Check the sales, value and bounce rate by country.
+                    </p>
+                </div>
+                <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+                    <div class="card">
+                        <div class="card-header p-2 ps-3">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <p class="text-sm mb-0 text-capitalize">Today's Money</p>
+                                    <h4 class="mb-0">$53k</h4>
+                                </div>
+                                <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
+                                    <i class="material-symbols-rounded opacity-10">weekend</i>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="dark horizontal my-0">
+                        <div class="card-footer p-2 ps-3">
+                            <p class="mb-0 text-sm"><span class="text-success font-weight-bolder">+55% </span>than last week</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+                    <div class="card">
+                        <div class="card-header p-2 ps-3">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <p class="text-sm mb-0 text-capitalize">Today's Users</p>
+                                    <h4 class="mb-0">2300</h4>
+                                </div>
+                                <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
+                                    <i class="material-symbols-rounded opacity-10">person</i>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="dark horizontal my-0">
+                        <div class="card-footer p-2 ps-3">
+                            <p class="mb-0 text-sm"><span class="text-success font-weight-bolder">+3% </span>than last month</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+                    <div class="card">
+                        <div class="card-header p-2 ps-3">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <p class="text-sm mb-0 text-capitalize">Ads Views</p>
+                                    <h4 class="mb-0">3,462</h4>
+                                </div>
+                                <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
+                                    <i class="material-symbols-rounded opacity-10">leaderboard</i>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="dark horizontal my-0">
+                        <div class="card-footer p-2 ps-3">
+                            <p class="mb-0 text-sm"><span class="text-danger font-weight-bolder">-2% </span>than yesterday</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-sm-6">
+                    <div class="card">
+                        <div class="card-header p-2 ps-3">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <p class="text-sm mb-0 text-capitalize">Sales</p>
+                                    <h4 class="mb-0">$103,430</h4>
+                                </div>
+                                <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
+                                    <i class="material-symbols-rounded opacity-10">weekend</i>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="dark horizontal my-0">
+                        <div class="card-footer p-2 ps-3">
+                            <p class="mb-0 text-sm"><span class="text-success font-weight-bolder">+5% </span>than yesterday</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        <?php } ?>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mt-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h6 class="mb-0 ">Website Views</h6>
+                            <p class="text-sm ">Last Campaign Performance</p>
+                            <div class="pe-2">
+                                <div class="chart">
+                                    <canvas id="chart-bars" class="chart-canvas" height="170"></canvas>
+                                </div>
+                            </div>
+                            <hr class="dark horizontal">
+                            <div class="d-flex ">
+                                <i class="material-symbols-rounded text-sm my-auto me-1">schedule</i>
+                                <p class="mb-0 text-sm"> campaign sent 2 days ago </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mt-4 mb-4">
+                    <div class="card ">
+                        <div class="card-body">
+                            <h6 class="mb-0 "> Daily Sales </h6>
+                            <p class="text-sm "> (<span class="font-weight-bolder">+15%</span>) increase in today sales. </p>
+                            <div class="pe-2">
+                                <div class="chart">
+                                    <canvas id="chart-line" class="chart-canvas" height="170"></canvas>
+                                </div>
+                            </div>
+                            <hr class="dark horizontal">
+                            <div class="d-flex ">
+                                <i class="material-symbols-rounded text-sm my-auto me-1">schedule</i>
+                                <p class="mb-0 text-sm"> updated 4 min ago </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 mt-4 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h6 class="mb-0 ">Completed Tasks</h6>
+                            <p class="text-sm ">Last Campaign Performance</p>
+                            <div class="pe-2">
+                                <div class="chart">
+                                    <canvas id="chart-line-tasks" class="chart-canvas" height="170"></canvas>
+                                </div>
+                            </div>
+                            <hr class="dark horizontal">
+                            <div class="d-flex ">
+                                <i class="material-symbols-rounded text-sm my-auto me-1">schedule</i>
+                                <p class="mb-0 text-sm">just updated</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="footer py-4  ">
+                <div class="container-fluid">
+                    <div class="row align-items-center justify-content-lg-between">
+                        <div class="col-lg-6 mb-lg-0 mb-4">
+                            <div class="copyright text-center text-sm text-muted text-lg-start">
+                                © <script>
+                                    document.write(new Date().getFullYear())
+                                </script>,
+                                made with <i class="fa fa-heart"></i> by
+                                <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">Creative Tim</a>
+                                for a better web.
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <ul class="nav nav-footer justify-content-center justify-content-lg-end">
+                                <li class="nav-item">
+                                    <a href="https://www.creative-tim.com" class="nav-link text-muted" target="_blank">Creative Tim</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="https://www.creative-tim.com/presentation" class="nav-link text-muted" target="_blank">About Us</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="https://www.creative-tim.com/blog" class="nav-link text-muted" target="_blank">Blog</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="https://www.creative-tim.com/license" class="nav-link pe-0 text-muted" target="_blank">License</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
     </main>
     <div class="fixed-plugin">
 
@@ -406,6 +562,18 @@
     <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
     <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
     <script src="../assets/js/plugins/chartjs.min.js"></script>
+    <script>
+        function toggleSubmenu(event) {
+            event.preventDefault();
+            const navItem = event.currentTarget.parentElement;
+            const submenu = navItem.querySelector('.submenu');
+            if (submenu.style.display === 'block') {
+                submenu.style.display = 'none';
+            } else {
+                submenu.style.display = 'block';
+            }
+        }
+    </script>
     <script>
         var ctx = document.getElementById("chart-bars").getContext("2d");
 

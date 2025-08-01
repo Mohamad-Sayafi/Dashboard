@@ -17,7 +17,7 @@
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">
-    <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-radius-lg fixed-start ms-2  bg-white my-2" id="sidenav-main">
+        <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-radius-lg fixed-start ms-2  bg-white my-2" id="sidenav-main">
         <div class="sidenav-header">
             <i class="fas fa-times p-3 cursor-pointer text-dark opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
             <a class="navbar-brand px-4 py-3 m-0" href=" https://demos.creative-tim.com/material-dashboard/pages/dashboard " target="_blank">
@@ -41,13 +41,22 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="products.php">
+                    <a class="nav-link text-dark" href="#" onclick="toggleSubmenu(event)">
                         <i class="material-symbols-rounded opacity-5">receipt_long</i>
                         <span class="nav-link-text ms-1">Products</span>
+                        <i class="material-symbols-rounded ms-auto">expand_more</i>
                     </a>
+                    <ul class="submenu nav flex-column ms-4" style="display: none; list-style: none; padding-left: 0;">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="products.php">Your Products</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="product_category.php">Product Category</a>
+                        </li>
+                    </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active bg-gradient-dark text-white" href="order.php">
+                    <a class="nav-link active bg-gradient-dark text-light" href="order.php">
                         <i class="material-symbols-rounded opacity-5">view_in_ar</i>
                         <span class="nav-link-text ms-1">Orders</span>
                     </a>
@@ -402,6 +411,18 @@
     <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
     <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
     <script src="../assets/js/plugins/chartjs.min.js"></script>
+    <script>
+        function toggleSubmenu(event) {
+            event.preventDefault();
+            const navItem = event.currentTarget.parentElement;
+            const submenu = navItem.querySelector('.submenu');
+            if (submenu.style.display === 'block') {
+                submenu.style.display = 'none';
+            } else {
+                submenu.style.display = 'block';
+            }
+        }
+    </script>
     <script>
         var ctx = document.getElementById("chart-bars").getContext("2d");
 

@@ -1,118 +1,80 @@
 <?php
 require_once 'loader.php';
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Register Form</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="assets/js/main.js"></script>
-    <style>
-        body {
-            background: #f0f2f5;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        .form-card {
-            background: #ffffff;
-            padding: 40px 35px;
-            border-radius: 0.5rem;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-            width: 380px;
-        }
-
-        h2 {
-            color: #e65100;
-            font-weight: 700;
-            margin-bottom: 2rem;
-            text-align: center;
-        }
-
-        label {
-            color: #333333;
-            font-weight: 600;
-        }
-
-        .form-control {
-            background-color: #fafafa;
-            border: 2px solid #ff9800;
-            border-radius: 0.375rem;
-            color: #333333;
-            padding: 10px 12px;
-            font-weight: 500;
-            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
-            transition: border-color 0.25s ease, box-shadow 0.25s ease;
-        }
-
-        .form-control::placeholder {
-            color: #b0b0b0;
-        }
-
-        .form-control:focus {
-            background-color: #fff;
-            border-color: #ef6c00;
-            box-shadow: 0 0 8px rgba(239, 108, 0, 0.5);
-            color: #222;
-            outline: none;
-        }
-
-        .btn-primary {
-            background-color: #ef6c00;
-            border: none;
-            border-radius: 0.5rem;
-            font-weight: 700;
-            padding: 12px 0;
-            width: 100%;
-            transition: background-color 0.3s ease;
-        }
-
-        .btn-primary:hover {
-            background-color: #d84315;
-        }
-    </style>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
+    <title>
+        Register Form
+    </title>
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700,900" />
+    <link href="assets/css/nucleo-icons.css" rel="stylesheet" />
+    <link href="assets/css/nucleo-svg.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link id="pagestyle" href="assets/css/material-dashboard.css?v=3.2.0" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="assets/js/main.js">
+    </script>
 </head>
 
 <body>
-    <div class="form-card">
-        <h2>Create Account</h2>
-        <form action="" method="post" id="form">
-            <div class="mb-3">
-                <label for="name" class="form-label">Name</label>
-                <input type="text" class="form-control" id="name" placeholder="Full Name" required />
+    <div class="col-xl-4 col-lg-5 col-md-7 d-flex flex-column ms-auto me-auto ms-lg-auto mt-5">
+        <div class="card card-plain">
+            <div class="card-header">
+                <h4 class="font-weight-bolder">Register</h4>
             </div>
-            <div class="mb-3">
-                <label for="email" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="email" placeholder="email@example.com" required />
+            <div class="card-body">
+                <form action="" method="post" id="form">
+                    <div class="input-group input-group-outline mb-3">
+                        <input type="text" class="form-control" id="name" placeholder="Full Name" required />
+                    </div>
+                    <div class="input-group input-group-outline mb-3">
+                        <input type="email" class="form-control" id="email" placeholder="email@example.com" required />
+                    </div>
+                    <div class="input-group input-group-outline mb-3">
+                        <input type="password" class="form-control" id="password" placeholder="Password" required />
+                    </div>
+                    <div class="input-group input-group-outline mb-3">
+                        <input type="password" class="form-control" id="confirmpassword" placeholder="Confirm Password" required />
+                    </div>
+                    <div class="form-check form-check-info text-start ps-0">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked>
+                        <label class="form-check-label" for="flexCheckDefault">
+                            I agree the <a href="javascript:;" class="text-dark font-weight-bolder">Terms and Conditions</a>
+                        </label>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-lg bg-gradient-dark btn-lg w-100 mt-4 mb-0">Sign Up</button>
+                    </div>
+                </form>
             </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" placeholder="Password" required />
+            <div class="card-footer text-center pt-0 px-lg-2 px-1">
+                <p class="mb-2 text-sm mx-auto">
+                    Already have an account?
+                    <a href="template/login.php" class="text-primary text-gradient font-weight-bold">Sign in</a>
+                </p>
             </div>
-            <div class="mb-3">
-                <label for="confirmPassword" class="form-label">Confirm Password</label>
-                <input type="password" class="form-control" id="confirmpassword" placeholder="Confirm Password" required />
-            </div>
-            <button type="submit" class="btn btn-primary" name="submit">Rigister</button>
-        </form>
-        <div>
-            <p class="mt-3">
-                If you have an account,
-                <a href="template/login.php" class="text-decoration-none" style="color: #ef6c00; font-weight: 700;">
-                    login now
-                </a>
-            </p>
-
         </div>
+    </div>
+    <script src="assets/js/core/popper.min.js"></script>
+    <script src="assets/js/core/bootstrap.min.js"></script>
+    <script src="assets/js/plugins/perfect-scrollbar.min.js"></script>
+    <script src="assets/js/plugins/smooth-scrollbar.min.js"></script>
+    <script>
+        var win = navigator.platform.indexOf('Win') > -1;
+        if (win && document.querySelector('#sidenav-scrollbar')) {
+            var options = {
+                damping: '0.5'
+            }
+            Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+        }
+    </script>
 </body>
 
 </html>

@@ -41,10 +41,19 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active bg-gradient-dark text-white" href="products.php">
+                    <a class="nav-link text-dark" href="#" onclick="toggleSubmenu(event)">
                         <i class="material-symbols-rounded opacity-5">receipt_long</i>
                         <span class="nav-link-text ms-1">Products</span>
+                        <i class="material-symbols-rounded ms-auto">expand_more</i>
                     </a>
+                    <ul class="submenu nav flex-column ms-4" style="display: none; list-style: none; padding-left: 0;">
+                        <li class="nav-item">
+                            <a class="nav-link active bg-gradient-dark text-light" href="products.php">Your Products</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="product_category.php">Product Category</a>
+                        </li>
+                    </ul>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-dark" href="order.php">
@@ -427,6 +436,18 @@
     <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
     <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
     <script src="../assets/js/plugins/chartjs.min.js"></script>
+    <script>
+        function toggleSubmenu(event) {
+            event.preventDefault();
+            const navItem = event.currentTarget.parentElement;
+            const submenu = navItem.querySelector('.submenu');
+            if (submenu.style.display === 'block') {
+                submenu.style.display = 'none';
+            } else {
+                submenu.style.display = 'block';
+            }
+        }
+    </script>
     <script>
         var ctx = document.getElementById("chart-bars").getContext("2d");
 
