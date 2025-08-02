@@ -35,7 +35,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active bg-gradient-dark text-light" href="user_info.php">
+                    <a class="nav-link text-dark" href="user_info.php">
                         <i class="material-symbols-rounded opacity-5">table_view</i>
                         <span class="nav-link-text ms-1">Profile</span>
                     </a>
@@ -48,7 +48,7 @@
                     </a>
                     <ul class="submenu nav flex-column ms-4" style="display: none; list-style: none; padding-left: 0;">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="all_products.php">Products</a>
+                            <a class="nav-link active bg-gradient-dark text-light" href="all_products.php">Products</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" href="products.php">Your Products</a>
@@ -72,181 +72,284 @@
         <?php
         require_once '../loader.php';
         session_start();
-        $user = $_SESSION['user_id'];
 
-        $sql = "SELECT *FROM user WHERE `user_id`= $user";
+        $sql = "SELECT *FROM products ";
         $output = db_select($sql);
-        $user_info = $output[0];
         ?>
         <!DOCTYPE html>
         <html lang="en">
 
         <head>
             <meta charset="UTF-8" />
-            <meta name="viewport" content="width=device-width, initial-scale=1" />
-            <title>Profile Page</title>
+            <title>Your Product Page</title>
             <link
                 rel="stylesheet"
                 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
                 crossorigin="anonymous"
-                referrerpolicy="no-referrer" />
+                referrerpolicy="no-referrer">
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script src="../assets/js/main.js"></script>
+
             <style>
                 body {
+                    font-family: Arial, sans-serif;
                     margin: 0;
-                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                    background-color: #f8f9fa;
-                    display: flex;
-                    flex-direction: column;
-                    min-height: 100vh;
-                    align-items: center;
-                    color: #222;
+                    padding: 0;
+                    background-color: #f4f4f4;
                 }
 
                 header {
-                    width: 100%;
-                    padding: 15px 0;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 15px 30px;
+                    color: white;
+                    z-index: 1000000;
                     position: relative;
-                    text-align: center;
+                    border-bottom: 1px solid #dee2e6;
+                }
+
+                .title {
+                    font-size: 28px;
                     font-weight: 700;
-                    font-size: 30px;
-                    margin-top: 20px;
-                    user-select: none;
-                    color: #222;
+                    margin-right: auto;
+                    color: black;
                 }
 
-                .logout-btn {
-                    position: absolute;
-                    left: 20px;
-                    top: 50%;
-                    transform: translateY(-50%);
-                    background-color: #343a40;
+                .logout-btn,
+                .add-btn {
+                    background-color: #888;
                     border: none;
-                    cursor: pointer;
-                    font-size: 24px;
-                    padding: 0;
-                    border-radius: 8px;
+                    padding: 10px 20px;
+                    border-radius: 5px;
+                    margin: 0 10px;
+                    display: inline-flex;
+                    align-items: center;
+                    color: white;
+                    text-decoration: none;
+                }
+
+                .logout-btn a,
+                .add-btn a {
+
+                    text-decoration: none;
+                    font-weight: 600;
+                    font-size: 16px;
+                }
+
+                .order_product {
+                    position: absolute;
+                    right: 10px;
+                    background-color: #6c757d;
+                    color: white;
+                    border-radius: 10px;
+                }
+
+                .order_product {
+                    color: black;
+                    border-radius: 10px;
+                }
+
+                .logout-btn i,
+                .add-btn i {
+                    margin-right: 8px;
+                }
+
+                .logout-btn:hover,
+                .add-btn:hover {
+                    background-color: #6c757d;
                     transition: background-color 0.3s ease;
-                    display: inline-block;
                 }
 
-                .logout-btn a {
-                    display: inline-block;
-                    color: #fff;
-                    padding: 6px 14px;
-                    border-radius: 8px;
-                    text-decoration: none;
+                .search-wrapper {
+                    display: flex;
+                    align-items: center;
+                    position: relative;
                 }
 
-                .logout-btn:hover {
-                    background-color: #495057;
+                #wordInput {
+                    padding: 10px 15px;
+                    border-radius: 20px;
+                    border: 1px solid #ccc;
+                    width: 250px;
+                    font-size: 16px;
+                    transition: width 0.3s ease;
+                    z-index: 100000000;
                 }
 
-                .logout-btn:hover a {
-                    text-decoration: none;
+                #wordInput:focus {
+                    border-color: #007bff;
+                    outline: none;
+                    width: 300px;
                 }
 
+                .search-btn {
+                    background-color: #6c757d;
+                    border: none;
+                    padding: 10px 15px;
+                    border-radius: 50%;
+                    cursor: pointer;
+                    margin-left: 10px;
+                    z-index: 100000000;
+                }
 
-                main {
-                    flex-grow: 1;
+                .search-btn i {
+                    color: white;
+                    font-size: 16px;
+                }
+
+                .search-btn:hover {
+                    background-color: #95989bff;
+                    transition: background-color 0.3s ease;
+                }
+
+                #result {
+                    position: sticky;
+                    top: 0;
+                    z-index: 100000;
+                    display: none;
+                }
+
+                @media (max-width: 768px) {
+                    .title {
+                        font-size: 22px;
+                    }
+
+                    #wordInput {
+                        width: 180px;
+                    }
+
+                    .search-wrapper {
+                        flex-direction: column;
+                        align-items: flex-start;
+                    }
+
+                    .search-btn {
+                        margin-top: 10px;
+                    }
+                }
+
+                .product-list {
+                    padding: 20px;
                     display: flex;
                     flex-direction: column;
-                    align-items: center;
-                    padding: 20px 20px 40px 20px;
-                    width: 100%;
-                    max-width: 400px;
-                    box-sizing: border-box;
-                    background-color: #f8f9fa;
-                    border-radius: 12px;
-                    margin-top: 20px;
-
+                    gap: 25px;
+                    max-width: 900px;
+                    margin: 0 auto;
                 }
 
-                main img {
+                .product-card {
+                    background-color: white;
+                    border-radius: 8px;
+                    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+                    display: flex;
+                    align-items: center;
+                    padding: 20px;
+                    gap: 20px;
+                    min-height: 160px;
+                }
+
+                .product-card img {
                     width: 140px;
                     height: 140px;
-                    border-radius: 50%;
                     object-fit: cover;
-                    margin-top: 40px;
-                    margin-bottom: 20px;
+                    border-radius: 50%;
+                    flex-shrink: 0;
                 }
 
-                main h2 {
-                    margin: 0;
-                    font-size: 24px;
-                    font-weight: 700;
-                    margin-bottom: 8px;
-                    color: #222;
+                .product-info {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    height: 140px;
+                    flex: 1;
+                    position: relative;
                 }
 
-                main p {
+                .product-info h3 {
                     margin: 0;
-                    font-size: 16px;
+                    font-size: 22px;
+                    color: #333;
+                }
+
+                .product-info .category {
+                    font-size: 14px;
+                    color: #888;
+                    margin-top: 6px;
+                }
+
+                .product-info .price {
+                    font-size: 18px;
+                    color: #007bff;
+                    font-weight: bold;
+                    margin-top: 10px;
+                }
+
+                .product-info p {
+                    font-size: 14px;
                     color: #555;
-                    margin-bottom: 30px;
+                    margin-top: 10px;
+                    line-height: 1.3;
                 }
 
-                .edit-profile {
-                    background-color: #000;
-                    color: #fff;
-                    border: none;
-                    padding: 12px 30px;
-                    font-size: 16px;
-                    font-weight: 600;
-                    border-radius: 6px;
-                    cursor: pointer;
-                    transition: background-color 0.3s ease;
-                    align-self: center;
+                .search {
+                    display: flex;
                 }
 
-                .edit-profile {
-                    text-decoration: none;
+                .overlay {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: black;
+                    display: none;
+                    z-index: 1000;
                 }
 
-                .edit-profile:hover {
-                    background-color: #333;
-                }
-
-                @media (max-width: 400px) {
-                    header {
-                        font-size: 24px;
-                        margin-top: 30px;
+                @media (max-width: 600px) {
+                    .product-card {
+                        flex-direction: column;
+                        min-height: auto;
+                        text-align: center;
                     }
 
-                    main img {
-                        width: 120px;
-                        height: 120px;
-                        margin-top: 30px;
+                    .product-card img {
+                        margin: 0 auto;
                     }
 
-                    main h2 {
-                        font-size: 20px;
-                    }
-
-                    main .edit-profile {
-                        width: 100%;
-                    }
-                }
-
-                @media (min-width: 1200px) {
-                    .sidenav.fixed-start+.main-content {
-                        margin-left: 0 !important;
+                    .product-info {
+                        height: auto;
                     }
                 }
             </style>
         </head>
-
-        <body>
+        <div id="content">
             <header>
-                Profile
-                <main>
-                    <img src="../uploads/user.png" alt="Profile Picture" />
-                    <h2><?php echo $user_info['user_name']; ?></h2>
-                    <p><?php echo $user_info['user_email']; ?></p>
-                    <a href="change_info.php" class="edit-profile">Edit Profile</a>
-                </main>
-        </body>
+                <div class="title">Products</div>
+            </header>
 
-        </html>
+            <?php foreach ($output as $item) { ?>
+                <div class="product-list">
+                    <div class="product-card">
+                        <img src="../uploads/<?php echo $item['photo_name']; ?>">
+                        <div class="product-info">
+                            <h3><?php echo $item['product_title']; ?> </h3>
+                            <div class="category">Category : <?php echo $item['product_category']; ?> </div>
+                            <div class="price"><?php echo $item['product_price'] . '$' ?> </div>
+                            <p><?php echo $item['product_caption']; ?> </p>
+                            <form action="#" method="post" class="order_product">
+                                <input id="product_id" type="hidden" name="product_id" value="<?php echo $item['procuct_id']; ?>">
+                                <button type="submit" class="order-btn">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            <?php } ?>
+        </div>
     </main>
     <div class="fixed-plugin">
 

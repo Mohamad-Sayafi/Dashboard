@@ -11,7 +11,7 @@
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700,900" />
     <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
     <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
-    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+    <script src="../assets/js/fontawesomkit.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
     <link id="pagestyle" href="../assets/css/material-dashboard.css?v=3.2.0" rel="stylesheet" />
 </head>
@@ -47,6 +47,9 @@
                         <i class="material-symbols-rounded ms-auto">expand_more</i>
                     </a>
                     <ul class="submenu nav flex-column ms-4" style="display: none; list-style: none; padding-left: 0;">
+                       <li class="nav-item">
+                            <a class="nav-link text-dark" href="all_products.php">Products</a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link active bg-gradient-dark text-light" href="products.php">Your Products</a>
                         </li>

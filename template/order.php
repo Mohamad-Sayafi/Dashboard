@@ -11,13 +11,13 @@
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700,900" />
     <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
     <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
-    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+    <script src="../assets/js/fontawesomkit.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
     <link id="pagestyle" href="../assets/css/material-dashboard.css?v=3.2.0" rel="stylesheet" />
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">
-        <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-radius-lg fixed-start ms-2  bg-white my-2" id="sidenav-main">
+    <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-radius-lg fixed-start ms-2  bg-white my-2" id="sidenav-main">
         <div class="sidenav-header">
             <i class="fas fa-times p-3 cursor-pointer text-dark opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
             <a class="navbar-brand px-4 py-3 m-0" href=" https://demos.creative-tim.com/material-dashboard/pages/dashboard " target="_blank">
@@ -48,6 +48,9 @@
                     </a>
                     <ul class="submenu nav flex-column ms-4" style="display: none; list-style: none; padding-left: 0;">
                         <li class="nav-item">
+                            <a class="nav-link text-dark" href="all_products.php">Products</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link text-dark" href="products.php">Your Products</a>
                         </li>
                         <li class="nav-item">
@@ -74,21 +77,19 @@
         $user = $_SESSION['user_id'];
 
         $sql = "SELECT 
-            products.procuct_id, 
-            products.product_title, 
-            products.product_caption, 
-            products.product_price, 
-            products.product_category, 
-            products.photo_name, 
-            orders.order_id, 
-            orders.user_id 
+        products.procuct_id, 
+        products.product_title, 
+        products.product_caption, 
+        products.product_price, 
+        products.product_category, 
+        products.photo_name, 
+        orders.order_id, 
+        orders.user_id 
         FROM products 
-        LEFT JOIN orders ON products.procuct_id = orders.product_id AND orders.user_id = $user";
-
+        INNER JOIN orders ON products.procuct_id = orders.product_id 
+        WHERE orders.user_id = $user;
+        ";
         $output = db_select($sql);
-
-
-
         ?>
 
         <!DOCTYPE html>

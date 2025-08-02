@@ -11,18 +11,11 @@
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700,900" />
   <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
   <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
-  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <script src="../assets/js/fontawesomkit.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
   <link id="pagestyle" href="../assets/css/material-dashboard.css?v=3.2.0" rel="stylesheet" />
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="../assets/js/main.js"></script>
-  <style>
-    @media (min-width: 1200px) {
-      .sidenav.fixed-start+.main-content {
-        padding-top: 30px;
-      }
-    }
-  </style>
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">
@@ -56,6 +49,9 @@
             <i class="material-symbols-rounded ms-auto">expand_more</i>
           </a>
           <ul class="submenu nav flex-column ms-4" style="display: none; list-style: none; padding-left: 0;">
+            <li class="nav-item">
+              <a class="nav-link text-dark" href="all_products.php">Products</a>
+            </li>
             <li class="nav-item">
               <a class="nav-link text-dark" href="products.php">Your Products</a>
             </li>
@@ -140,7 +136,7 @@
           display: flex;
           justify-content: center;
           align-items: center;
-
+          margin-top: 20px;
         }
 
         .tablink {
@@ -251,11 +247,31 @@
           color: white;
           border-radius: 10px;
         }
+
+        header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 15px 30px;
+          color: white;
+          z-index: 1000000;
+          position: relative;
+          border-bottom: 1px solid #dee2e6;
+        }
+
+        .title {
+          font-size: 28px;
+          font-weight: 700;
+          margin-right: auto;
+          color: black;
+        }
       </style>
     </head>
 
     <body>
-
+      <header>
+        <div class="title">Product Category </div>
+      </header>
       <div class="tabs">
         <button class="tablink active" data-tab="Clothing">Clothing</button>
         <button class="tablink" data-tab="Shoes">Shoes</button>
@@ -276,12 +292,6 @@
                 <div class="category">Category : <?php echo $item['product_category']; ?> </div>
                 <div class="price"><?php echo $item['product_price'] . '$' ?> </div>
                 <p><?php echo $item['product_caption']; ?> </p>
-                <form action="#" method="post" class="order_product">
-                  <input id="product_id" type="hidden" name="product_id" value="<?php echo $item['procuct_id']; ?>">
-                  <button type="submit" class="order-btn">
-                    <i class="fas fa-plus"></i>
-                  </button>
-                </form>
               </div>
             </div>
           </div>
@@ -302,12 +312,7 @@
                 <div class="category">Category : <?php echo $item['product_category']; ?> </div>
                 <div class="price"><?php echo $item['product_price'] . '$' ?> </div>
                 <p><?php echo $item['product_caption']; ?> </p>
-                <form action="#" method="post" class="order_product">
-                  <input id="product_id" type="hidden" name="product_id" value="<?php echo $item['procuct_id']; ?>">
-                  <button type="submit" class="order-btn">
-                    <i class="fas fa-plus"></i>
-                  </button>
-                </form>
+              
               </div>
             </div>
           </div>
@@ -328,12 +333,7 @@
                 <div class="category">Category : <?php echo $item['product_category']; ?> </div>
                 <div class="price"><?php echo $item['product_price'] . '$' ?> </div>
                 <p><?php echo $item['product_caption']; ?> </p>
-                <form action="#" method="post" class="order_product">
-                  <input id="product_id" type="hidden" name="product_id" value="<?php echo $item['procuct_id']; ?>">
-                  <button type="submit" class="order-btn">
-                    <i class="fas fa-plus"></i>
-                  </button>
-                </form>
+                
               </div>
             </div>
           </div>
@@ -354,12 +354,6 @@
                 <div class="category">Category : <?php echo $item['product_category']; ?> </div>
                 <div class="price"><?php echo $item['product_price'] . '$' ?> </div>
                 <p><?php echo $item['product_caption']; ?> </p>
-                <form action="#" method="post" class="order_product">
-                  <input id="product_id" type="hidden" name="product_id" value="<?php echo $item['procuct_id']; ?>">
-                  <button type="submit" class="order-btn">
-                    <i class="fas fa-plus"></i>
-                  </button>
-                </form>
               </div>
             </div>
           </div>
