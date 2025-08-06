@@ -86,7 +86,7 @@
         orders.order_id, 
         orders.user_id 
         FROM products 
-        INNER JOIN orders ON products.procuct_id = orders.product_id 
+        LEFT OUTER JOIN orders ON products.procuct_id = orders.product_id 
         WHERE orders.user_id = $user;
         ";
         $output = db_select($sql);
